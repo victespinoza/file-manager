@@ -1,16 +1,16 @@
-import ReadLine from "../infrastructe/ReadLine";
+import ReadLine from "../infrastructure/ReadLine";
 
 class FileSystem {
-  constructor(private readln: ReadLine, private fileService) {}
+  constructor(private readLine: ReadLine, private fileManagerController) {}
 
   start() {
-    this.readln.on("line", (input) => {
-      this.fileService.execute(input);
+    this.readLine.on("line", (input) => {
+      this.fileManagerController.execute(input);
     });
   }
 
   close() {
-    this.readln.close();
+    this.readLine.close();
   }
 }
 export default FileSystem;

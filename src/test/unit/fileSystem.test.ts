@@ -1,44 +1,44 @@
 import FileSystem from "../../main/delivery/FileSystem";
 import mockStdin from "mock-stdin";
-import ReadLine from "../../main/infrastructe/ReadLine";
-import ReadLineService from "../../main/infrastructe/ReadLineService";
+import ReadLine from "../../main/infrastructure/ReadLine";
+import ReadLineService from "../../main/infrastructure/ReadLineService";
 
 describe("File System", () => {
-  let readln: ReadLine;
+  let readLine: ReadLine;
   let stdin;
   beforeEach(() => {
     stdin = mockStdin.stdin();
-    readln = ReadLineService.create();
+    readLine = ReadLineService.create();
   });
 
   afterEach(() => {
-    readln.close();
+    readLine.close();
     stdin.end();
   });
 
-  it("Should listening throught readline's on method when run start", () => {
-    readln.on = jest.fn();
-    const fileStystem = new FileSystem(readln, {});
-    fileStystem.start();
-    expect(readln.on).toBeCalled();
+  it("Should listening through readline's on method when run start", () => {
+    readLine.on = jest.fn();
+    const fileSystem = new FileSystem(readLine, {});
+    fileSystem.start();
+    expect(readLine.on).toBeCalled();
   });
 
-  it("Should close listening throught readline's close method when run close", () => {
-    readln.close = jest.fn();
-    const fileStystem = new FileSystem(readln, {});
-    fileStystem.close();
-    expect(readln.close).toBeCalled();
+  it("Should close listening through readline's close method when run close", () => {
+    readLine.close = jest.fn();
+    const fileSystem = new FileSystem(readLine, {});
+    fileSystem.close();
+    expect(readLine.close).toBeCalled();
   });
 
-  it("Should listening stdin when run start", () => {
-    const fileService = { execute: jest.fn() };
-    const fileStystem = new FileSystem(readln, fileService);
+  it("Should execute file system controller when command is insert trough stdin", () => {
+    const fileManagerController = { execute: jest.fn() };
+    const fileSystem = new FileSystem(readLine, fileManagerController);
     const command = "command";
 
-    fileStystem.start();
+    fileSystem.start();
     stdin.send(`${command}\n`);
 
-    expect(fileService.execute).toBeCalledWith(command);
-    fileStystem.close();
+    expect(fileManagerController.execute).toBeCalledWith(command);
+    fileSystem.close();
   });
 });

@@ -1,5 +1,3 @@
-export default class CommandAction {
-  execute() {
-    throw new Error("Method not implemented.");
-  }
+export default abstract class CommandAction {
+  abstract execute();
 }

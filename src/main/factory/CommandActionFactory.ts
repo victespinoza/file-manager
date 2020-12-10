@@ -1,6 +1,8 @@
 import CommandAction from "../action/CommandAction";
-import GetCurrentDirectory from "../action/GetCurrentDirectory";
+import DisplayCurrentDirectory from "../action/DisplayCurrentDirectory";
 import ListAll from "../action/ListAll";
+import FileService from "../domain/FileService";
+import DisplayService from "../domain/DisplayService";
 
 export default class CommandActionFactory {
   private commands: Map<string, CommandAction>;
@@ -12,8 +14,13 @@ export default class CommandActionFactory {
   }
 
   initCommands() {
+    const fileService = new FileService();
+    const displayService = new DisplayService();
     this.commands = new Map();
-    this.commands.set("pwd", new GetCurrentDirectory());
+    this.commands.set(
+      "pwd",
+      new DisplayCurrentDirectory(fileService, displayService)
+    );
     this.commands.set("ls", new ListAll());
   }
 }

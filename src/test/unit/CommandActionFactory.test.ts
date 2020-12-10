@@ -1,5 +1,5 @@
 import CommandActionFactory from "../../main/factory/CommandActionFactory";
-import GetCurrentDirectory from "../../main/action/GetCurrentDirectory";
+import GetCurrentDirectory from "../../main/action/DisplayCurrentDirectory";
 import ListAll from "../../main/action/ListAll";
 
 describe("Command Action Factory", () => {
